@@ -4,8 +4,10 @@ import edu.uci.ics.jung.utils.UserData;
 import pt.inevo.encontra.graph.*;
 
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -340,8 +342,9 @@ public class PolygonSet extends ArrayList<Polygon>{
         // draw polylines
         for (int i=0;i<size();i++) {
             Polygon p = get(i);
+            String color=Integer.toHexString( new Random().nextInt(16777215));
             if (p!=null)
-                result += p.AsString(true,"#000000","none");
+                result += p.AsString(true,"#"+color,"none");
             factor-=delta;
         }
 
