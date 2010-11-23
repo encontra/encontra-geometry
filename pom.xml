@@ -17,7 +17,7 @@
     <dependencies>
         <dependency>
             <groupId>pt.inevo.encontra</groupId>
-            <artifactId>encontra-graph</artifactId>  <!-- TODO - Remove this dependency! -->
+            <artifactId>encontra-graph-core</artifactId>  <!-- TODO - Remove this dependency! -->
             <version>1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
