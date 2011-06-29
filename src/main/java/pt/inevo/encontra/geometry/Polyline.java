@@ -127,7 +127,7 @@ public class Polyline extends Entity2D {
 					Point previous = CheckFlag(flag, POLYLINE_FLAG.AT_END)?GetLastVertex():_vertex_array.get(0);
 				
 					if (previous!=null)
-						_length += previous.DistanceTo(vertex);
+						_length += previous.distanceTo(vertex);
 				}
 
 				if (CheckFlag(flag, POLYLINE_FLAG.AT_MIDDLE)) {
@@ -135,9 +135,9 @@ public class Polyline extends Entity2D {
 					Point next = _vertex_array.get(pos);
 
 					if (previous!=null && next!=null) {
-						_length -= previous.DistanceTo(next);
-						_length += vertex.DistanceTo(previous);
-						_length += vertex.DistanceTo(next);
+						_length -= previous.distanceTo(next);
+						_length += vertex.distanceTo(previous);
+						_length += vertex.distanceTo(next);
 					}
 				}
 
@@ -166,7 +166,7 @@ public class Polyline extends Entity2D {
 	* @desc calculate the bounding box of this polyline
 	*/
 	@Override
-	public void CalculateBoundingBox()
+	public void calculateBoundingBox()
 	{
 		
 		// if bounding box already exists it will not calculate
@@ -186,8 +186,8 @@ public class Polyline extends Entity2D {
 		{
 			vertex = _vertex_array.get(i);    
 			
-			x=vertex.GetX();
-			y=vertex.GetY();
+			x=vertex.getX();
+			y=vertex.getY();
 			
 			if (first) {
 				first = false;
@@ -295,11 +295,11 @@ public class Polyline extends Entity2D {
 
 	Point PointAt(double x, double y)
 	{
-		if (x == GetFirstVertex().GetX() && y == GetFirstVertex().GetY()) {
+		if (x == GetFirstVertex().getX() && y == GetFirstVertex().getY()) {
 			return GetFirstVertex();
 		}
 		
-		if (x == GetLastVertex().GetX() && y == GetLastVertex().GetY()) {
+		if (x == GetLastVertex().getX() && y == GetLastVertex().getY()) {
 			return GetLastVertex();
 		}
 		
@@ -421,7 +421,7 @@ public class Polyline extends Entity2D {
 
 		for (int i=0; i<_vertex_array.size();i++) {
 			p = _vertex_array.get(i);
-			p.PerformRounding(gamma);
+			p.performRounding(gamma);
 		}
 	}
 
@@ -448,7 +448,7 @@ public class Polyline extends Entity2D {
 			for (int p3_index=IsClosed()?0:2;p3_index<vertex_count; p3_index++) {
 				
 				// see if three points are collinear
-				if (_vertex_array.get(p3_index).Collinear(_vertex_array.get(p1_index),_vertex_array.get(p2_index))) {
+				if (_vertex_array.get(p3_index).collinear(_vertex_array.get(p1_index), _vertex_array.get(p2_index))) {
 
 					// in case they were, remove the middle one				
 					point = _vertex_array.get(p2_index);				
@@ -490,7 +490,7 @@ public class Polyline extends Entity2D {
 				current_vertex = _vertex_array.get(n);
 
 				// see if consecutive points are clustered too closely
-				if (previous_vertex.SquareDistanceTo(current_vertex)<squared_tolerance) {
+				if (previous_vertex.squareDistanceTo(current_vertex)<squared_tolerance) {
 					// remove unnecessary vertices
 					_vertex_array.remove(n);
 					//DELETE_OBJECT(current_vertex);
@@ -659,7 +659,7 @@ public class Polyline extends Entity2D {
 	void Scale(double sx, double sy)
 	{
 		for (int i=0; i<_vertex_array.size();i++)
-			_vertex_array.get(i).Scale(sx,sy);
+			_vertex_array.get(i).scale(sx, sy);
 
 		// in case of unioform scale
 		if (sx==sy)
@@ -678,7 +678,7 @@ public class Polyline extends Entity2D {
 	void Translate(double dx, double dy)
 	{
 		for (int i=0; i<_vertex_array.size();i++)
-			_vertex_array.get(i).Translate(dx,dy);
+			_vertex_array.get(i).translate(dx, dy);
 	}
 
 	/***
@@ -688,7 +688,7 @@ public class Polyline extends Entity2D {
 	void Rotate(double theta)
 	{
 		for (int i=0; i<_vertex_array.size();i++)
-			_vertex_array.get(i).Rotate(theta);
+			_vertex_array.get(i).rotate(theta);
 	}
 
 	/***
@@ -703,7 +703,7 @@ public class Polyline extends Entity2D {
 		for (int i=0;i<_vertex_array.size();i++){
 			current = _vertex_array.get(i);
 			if (previous!=null)
-				_length+=current.DistanceTo(previous);
+				_length+=current.distanceTo(previous);
 			previous = current;
 		}
 	}
@@ -729,9 +729,9 @@ public class Polyline extends Entity2D {
 			vertex = GetVertexAt(i);
 			NumberFormat nf=NumberFormat.getInstance(Locale.US);
 			 if(svg_format)
-				 result += nf.format(vertex.GetX())+","+nf.format(vertex.GetY())+" ";
+				 result += nf.format(vertex.getX())+","+nf.format(vertex.getY())+" ";
 			else
-				result += nf.format(vertex.GetX())+'\t'+nf.format(vertex.GetY())+'\t';
+				result += nf.format(vertex.getX())+'\t'+nf.format(vertex.getY())+'\t';
 		}		
 
 		// checks format
@@ -754,7 +754,7 @@ public class Polyline extends Entity2D {
 		for (int i=0; i<_vertex_array.size();i++) {
 			Point vertex = _vertex_array.get(i);
 			if (vertex!=null) {
-				s+=String.format("\t\t\t %d %d %d", vertex.GetX(), vertex.GetY(), 0);
+				s+=String.format("\t\t\t %d %d %d", vertex.getX(), vertex.getY(), 0);
 				if (i<_vertex_array.size()-1) 
 					s+=",";
 				else
@@ -851,8 +851,8 @@ public class Polyline extends Entity2D {
 			v = GetVertexAt(1);
 		}
 
-		double x = u.GetX()-v.GetX();
-		double y = u.GetY()-v.GetY();
+		double x = u.getX()-v.getX();
+		double y = u.getY()-v.getY();
 
 		double l = Math.sqrt(Math.sqrt(x)+Math.sqrt(y));
 
@@ -863,7 +863,7 @@ public class Polyline extends Entity2D {
 		double ext_x = x*length/l;
 		double ext_y = y*length/l;
 
-		return new Point(u.GetX()+ext_x, u.GetY()+ext_y);
+		return new Point(u.getX()+ext_x, u.getY()+ext_y);
 	}
 
 	boolean  Intersects(Line line) {
@@ -1012,12 +1012,12 @@ public class Polyline extends Entity2D {
 //	 	g.newStroke();
 //	 	for (i=0; i<VERTEX_COUNT_IN_POLYLINE(this);i++) {
 //	 		vertex = GetVertexAt(i);
-//	 		g.addPoint(vertex.GetX(), vertex.GetY());
+//	 		g.addPoint(vertex.getX(), vertex.getY());
 //	 	}
 	// 
 //	 	// Add the first vertex at the end of the scribble
 //	 	vertex = GetVertexAt(0);
-//	 	g.addPoint(vertex.GetX(), vertex.GetY());
+//	 	g.addPoint(vertex.getX(), vertex.getY());
 	// 
 //	 	// retrieves the geometric features of thatt scribble
 //	 	// parameter must be true in order to be according SBR
@@ -1041,7 +1041,7 @@ public class Polyline extends Entity2D {
 	// 
 //	 	for (i=0; i<VERTEX_COUNT_IN_POLYLINE(this);i++) {
 //	 		vertex = GetVertexAt(i);
-//	 		stroke.addPoint(vertex.GetX(), vertex.GetY());
+//	 		stroke.addPoint(vertex.getX(), vertex.getY());
 //	 	}
 	// 
 //	 	scribble.addStroke(stroke);

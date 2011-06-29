@@ -102,7 +102,7 @@ public class Box2D extends Entity2D {
 	*/
 	double GetMaxX()
 	{
-	  double x = m_point.GetX();
+	  double x = m_point.getX();
 	  double i_dx = x+m_vi.getDX();
 	  double j_dx = x+m_vj.getDX();
 	  double max_i = Math.max(x,i_dx);
@@ -115,7 +115,7 @@ public class Box2D extends Entity2D {
 	*/
 	double GetMaxY()
 	{
-	  double y = m_point.GetY();
+	  double y = m_point.getY();
 	  double i_dy = y+m_vi.getDY();
 	  double j_dy = y+m_vj.getDY();
 	  double max_i = Math.max(y,i_dy);
@@ -128,7 +128,7 @@ public class Box2D extends Entity2D {
 	*/
 	double GetMinX()
 	{
-	  double x = m_point.GetX();
+	  double x = m_point.getX();
 	  double i_dx = x+m_vi.getDX();
 	  double j_dx = x+m_vj.getDX();
 	  double min_i = Math.min(x,i_dx);
@@ -141,7 +141,7 @@ public class Box2D extends Entity2D {
 	*/
 	double GetMinY()
 	{
-	  double y = m_point.GetY();
+	  double y = m_point.getY();
 	  double i_dy = y+m_vi.getDY();
 	  double j_dy = y+m_vj.getDY();
 	  double min_i = Math.min(y,i_dy);
@@ -156,7 +156,7 @@ public class Box2D extends Entity2D {
 	*/
 	void Translate(double dx, double dy)
 	{
-	  m_point.Translate(dx,dy);
+	  m_point.translate(dx, dy);
 	}
 
 
@@ -166,7 +166,7 @@ public class Box2D extends Entity2D {
 	*/
 	void Scale(double sx, double sy)
 	{
-	  m_point.Scale(sx,sy);
+	  m_point.scale(sx, sy);
 	  m_vi.Scale(sx,sy);
 	  m_vj.Scale(sx,sy);
 	}
@@ -177,7 +177,7 @@ public class Box2D extends Entity2D {
 	*/
 	void Rotate(double theta)
 	{
-		m_point.Rotate(theta);
+		m_point.rotate(theta);
 		m_vi.Rotate(theta);
 		m_vj.Rotate(theta);
 	}
@@ -189,8 +189,8 @@ public class Box2D extends Entity2D {
 	*/
 	Point GetCenter()
 	{
-	  double x = m_point.GetX()+m_vi.getDX()/2+m_vj.getDX()/2;
-	  double y = m_point.GetY()+m_vi.getDY()/2+m_vj.getDY()/2;
+	  double x = m_point.getX()+m_vi.getDX()/2+m_vj.getDX()/2;
+	  double y = m_point.getY()+m_vi.getDY()/2+m_vj.getDY()/2;
 
 	  return new Point(x,y);
 	}
@@ -242,8 +242,8 @@ public class Box2D extends Entity2D {
 		if (p==null) return false;
 
 		if (m_is_axes_aligned) {
-			return (GetMinX()<=p.GetX()) && (GetMaxX()>=p.GetX()) &&
-				(GetMinY()<=p.GetY()) && (GetMaxY()>=p.GetY());		
+			return (GetMinX()<=p.getX()) && (GetMaxX()>=p.getX()) &&
+				(GetMinY()<=p.getY()) && (GetMaxY()>=p.getY());
 		} else {
 			// TODO: determine this case to use not axes-aligned boxes 
 			// for now returns always false
@@ -252,7 +252,7 @@ public class Box2D extends Entity2D {
 	}
 
 	@Override
-	public void CalculateBoundingBox() {
+	public void calculateBoundingBox() {
 		// TODO Auto-generated method stub
 		
 	}

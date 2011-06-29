@@ -40,8 +40,8 @@ public class Vector extends Entity2D implements Cloneable{
 	{
 	  _point = start_point;
 
-	  _dx=end_point.GetX()-start_point.GetX();
-	  _dy=end_point.GetY()-start_point.GetY();
+	  _dx=end_point.getX()-start_point.getX();
+	  _dy=end_point.getY()-start_point.getY();
 	}
 	
 	/***
@@ -49,7 +49,7 @@ public class Vector extends Entity2D implements Cloneable{
 	*/
 	void Translate(double dx, double dy)
 	{
-	  _point.Translate(dx,dy);
+	  _point.translate(dx, dy);
 	}
 
 
@@ -58,7 +58,7 @@ public class Vector extends Entity2D implements Cloneable{
 	*/
 	void Scale(double sx, double sy)
 	{
-	  _point.Scale(sx,sy);
+	  _point.scale(sx, sy);
 	  _dx*=sx;
 	  _dy*=sy;
 	}
@@ -68,12 +68,12 @@ public class Vector extends Entity2D implements Cloneable{
 	*/
 	void Rotate(double theta)
 	{	
-		Point p = new Point(_point.GetX()+getDX(), _point.GetY()+getDY());
-		_point.Rotate(theta);
-		p.Rotate(theta);
+		Point p = new Point(_point.getX()+getDX(), _point.getY()+getDY());
+		_point.rotate(theta);
+		p.rotate(theta);
 
-		_dx = p.GetX()-getDX();
-		_dy = p.GetY()-getDY();
+		_dx = p.getX()-getDX();
+		_dy = p.getY()-getDY();
 
 	}
 
@@ -105,15 +105,23 @@ public class Vector extends Entity2D implements Cloneable{
 
 	  return result;
 	}
-	
-	
+
+    /**
+     * Returns the angle between the two vectors.
+     * @param u
+     * @return
+     */
+    public double angle(Vector u) {
+        return (float)Math.abs(Math.atan2(this._dx*u.getDY() - this._dy*u.getDX() , Vector.dot(this, u)));
+    }
+
 	@Override
 	protected Vector clone(){
 		return new Vector(_point,_dx,_dy);
 	}
 	
 	@Override
-	public void CalculateBoundingBox() {
+	public void calculateBoundingBox() {
 		// TODO Auto-generated method stub
 		
 	}

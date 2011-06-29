@@ -1,10 +1,7 @@
 package pt.inevo.encontra.geometry;
 
-import edu.uci.ics.jung.utils.UserData;
 import pt.inevo.encontra.graph.*;
 
-
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -89,10 +86,10 @@ public class PolygonSet extends ArrayList<Polygon>{
 
 
         log.info(String.format("Created graph with %d vertices and %d edges.",
-                G.numVertices(),
-                G.numEdges()));
+                G.getVertexCount(),
+                G.getEdgeCount()));
 
-        if (G.numVertices()>MAX_GRAPH_VERTEX_COUNT) {
+        if (G.getVertexCount()>MAX_GRAPH_VERTEX_COUNT) {
             log.info("Number of vertices exceeds the maximum allowed. Polygon detection interrupted.");
         } else {
             // run the Floyd-Warshall Algorithm
@@ -148,14 +145,14 @@ public class PolygonSet extends ArrayList<Polygon>{
                 Point p = line.GetStartPoint();
                 if (p!=null) {
                     p.SetOwnerEntity(line);
-                    p.SetIndex(i);
+                    p.setIndex(i);
                     _all_points_array.add(p);
                 }
 
                 p = line.GetEndPoint();
                 if (p!=null) {
                     p.SetOwnerEntity(line);
-                    p.SetIndex(i);
+                    p.setIndex(i);
                     _all_points_array.add(p);
                 }
             }
@@ -167,7 +164,7 @@ public class PolygonSet extends ArrayList<Polygon>{
 
             // at the end we update the index on all points
             for(i=0; i<_all_points_array.size();i++)
-                _all_points_array.get(i).SetIndex(i);
+                _all_points_array.get(i).setIndex(i);
         }
     }
 
@@ -203,15 +200,17 @@ public class PolygonSet extends ArrayList<Polygon>{
                 //G.SetAdjacency(line.GetStartPoint().GetID(), line.GetEndPoint().GetID());
 
                 //GraphNode n1=G.findNode(line.GetStartPoint().GetID());
-                GraphNode n1=G.createNode(line.GetStartPoint().GetID());
-                n1.setUserDatum("point", line.GetStartPoint().toString(),UserData.SHARED);
+                GraphNode n1=G.createNode(new Long(line.GetStartPoint().GetID()));
+//                n1.setUserDatum("point", line.GetStartPoint().toString(),UserData.SHARED);
+                n1.setUserDatum("point", line.GetStartPoint().toString());
 
                 //GraphNode n2=G.findNode(line.GetEndPoint().GetID());
-                GraphNode n2=G.createNode(line.GetEndPoint().GetID());
-                n2.setUserDatum("point", line.GetEndPoint().toString(), UserData.SHARED);
+                GraphNode n2=G.createNode(new Long(line.GetEndPoint().GetID()));
+//                n2.setUserDatum("point", line.GetEndPoint().toString(), UserData.SHARED);
+                n2.setUserDatum("point", line.GetEndPoint().toString());
 
 
-                G.addEdge(new GraphAdjacencyEdge(n1,n2));
+                G.addEdge(new GraphAdjacencyEdge(n1,n2), n1, n2);
                 //G.addEdge(new GraphAdjacencyEdge(n2,n1));
             }
 

@@ -51,7 +51,7 @@ public abstract class Entity2D {
 	Entity2D GetOwnerEntity() { return _owner_entity;};
 	void SetOwnerEntity(Entity2D owner_entity) { _owner_entity = owner_entity;}
 	
-	public abstract void CalculateBoundingBox();
+	public abstract void calculateBoundingBox();
 	
 	/**
 	* @desc returns the bounding box of the entity.Calculates it if does nort exist
@@ -61,7 +61,7 @@ public abstract class Entity2D {
 	{
 		// if bounding box already exists do not calculate bounding box 
 	    if (_p_bounding_box==null)
-			CalculateBoundingBox();
+			calculateBoundingBox();
 
 	    return _p_bounding_box;
 	}
@@ -88,8 +88,8 @@ public abstract class Entity2D {
 		if (a==null || b==null || c==null)
 			return 0.0f;
 
-		return (b.GetX() - a.GetX())*(c.GetY()-a.GetY())-
-			(c.GetX()-a.GetX())*(b.GetY()-a.GetY());
+		return (b.getX() - a.getX())*(c.getY()-a.getY())-
+			(c.getX()-a.getX())*(b.getY()-a.getY());
 	}
 
 	// inline bool Entity2D::IsFirstPoint(Point2D *p)
@@ -124,7 +124,7 @@ public abstract class Entity2D {
 	*/
 	void RecalculateBoundingBox()
 	{
-		CalculateBoundingBox();
+		calculateBoundingBox();
 	}
 
 	public boolean CheckFlag(short flag, short mask){ 

@@ -69,16 +69,16 @@ public class Line extends Entity2D implements Comparable<Line>{
 	* @desc selectors that set the attributes of this line
 	* @param attribute value to be set
 	*/
-	//void Line2D::SetStartX(double x) { _start_point.SetX(x); }
-	//void Line2D::SetStartY(double y) { _start_point.SetY(y); }
-	//void Line2D::SetEndX(double x) { _end_point.SetX(x); }
-	//void Line2D::SetEndY(double y) { _end_point.SetY(y); }
+	//void Line2D::SetStartX(double x) { _start_point.setX(x); }
+	//void Line2D::SetStartY(double y) { _start_point.setY(y); }
+	//void Line2D::SetEndX(double x) { _end_point.setX(x); }
+	//void Line2D::SetEndY(double y) { _end_point.setY(y); }
 
 
 	// /***
 	// * @desc calculate the bounding box of this line
 	// */
-	// void Line2D::CalculateBoundingBox()
+	// void Line2D::calculateBoundingBox()
 	// {
 //	 	// if bounding box already exists it will not calculate
 //	 	if (_p_bounding_box)
@@ -87,8 +87,8 @@ public class Line extends Entity2D implements Comparable<Line>{
 //	 	// deleted when above lines added (25-Jun-2003)
 //	     // DELETE_OBJECT(_p_bounding_box );
 //	       
-//	     double dx = (_end_point.GetX() - _start_point.GetX());
-//	     double dy = (_end_point.GetY() - _start_point.GetY());
+//	     double dx = (_end_point.getX() - _start_point.getX());
+//	     double dy = (_end_point.getY() - _start_point.getY());
 	//   
 //	     _p_bounding_box= new Box2D(
 //	         &_start_point, 
@@ -157,10 +157,10 @@ public class Line extends Entity2D implements Comparable<Line>{
 		Point c = line.GetStartPoint();
 		Point d = line.GetEndPoint(); 
 		
-		return (c.Between(a,b) ||
-			d.Between(a,b) ||
-			a.Between(c,d) ||
-			b.Between(c,d));
+		return (c.between(a, b) ||
+			d.between(a, b) ||
+			a.between(c, d) ||
+			b.between(c, d));
 	}
 
 	/***
@@ -178,11 +178,11 @@ public class Line extends Entity2D implements Comparable<Line>{
 		Point d = line.GetEndPoint();
 
 		// Eliminate improper cases
-		if (c.Collinear(a, b) || d.Collinear(a,b) || a.Collinear(c,d) || b.Collinear(c,d))
+		if (c.collinear(a, b) || d.collinear(a, b) || a.collinear(c, d) || b.collinear(c, d))
 			return false;
 
-		return ( c.Left(a,b) ^ d.Left(a,b) ) &&
-			( a.Left(c,d) ^ b.Left(c,d) );
+		return ( c.left(a, b) ^ d.left(a, b) ) &&
+			( a.left(c, d) ^ b.left(c, d) );
 	}
 
 	/**
@@ -209,29 +209,29 @@ public class Line extends Entity2D implements Comparable<Line>{
 		Point d = line.GetEndPoint(); 
 
 		// first we calculate the denominator of equation
-		denom = a.GetX() * (d.GetY() - c.GetY()) +
-			b.GetX() * (c.GetY() - d.GetY()) +
-			d.GetX() * (b.GetY() - a.GetY()) +
-			c.GetX() * (a.GetY() - b.GetY());
+		denom = a.getX() * (d.getY() - c.getY()) +
+			b.getX() * (c.getY() - d.getY()) +
+			d.getX() * (b.getY() - a.getY()) +
+			c.getX() * (a.getY() - b.getY());
 
 		// see if segments are parallel
 		if (denom == 0.0)
 			return null;
 
-		num = a.GetX() * (d.GetY() - c.GetY()) +
-			c.GetX() * (a.GetY() - d.GetY()) +
-			d.GetX() * (c.GetY() - a.GetY());
+		num = a.getX() * (d.getY() - c.getY()) +
+			c.getX() * (a.getY() - d.getY()) +
+			d.getX() * (c.getY() - a.getY());
 
 		s = num/denom;
 	/*
-		num = c.GetX() * ( c.GetY() - b.GetY()) +
-			b.GetX() * ( a.GetY() - c.GetY()) +
-			c.GetX() * ( b.GetY() - a.GetY());
+		num = c.getX() * ( c.getY() - b.getY()) +
+			b.getX() * ( a.getY() - c.getY()) +
+			c.getX() * ( b.getY() - a.getY());
 
 		t = num / denom;
 	*/
 		
-		return new Point(a.GetX()+s*(b.GetX()-a.GetX()), a.GetY()+s*(b.GetY() - a.GetY()));
+		return new Point(a.getX()+s*(b.getX()-a.getX()), a.getY()+s*(b.getY() - a.getY()));
 	}
 
 	/***
@@ -268,10 +268,10 @@ public class Line extends Entity2D implements Comparable<Line>{
 			// in case lines share first point
 			// we must order the lines by its slope
 
-			double dx1 = GetLastPoint().GetX() - GetFirstPoint().GetX();
-			double dy1 = GetLastPoint().GetY() - GetFirstPoint().GetY();
-			double dx2 = other.GetLastPoint().GetX() - other.GetFirstPoint().GetX();
-			double dy2 = other.GetLastPoint().GetY() - other.GetFirstPoint().GetY();
+			double dx1 = GetLastPoint().getX() - GetFirstPoint().getX();
+			double dy1 = GetLastPoint().getY() - GetFirstPoint().getY();
+			double dx2 = other.GetLastPoint().getX() - other.GetFirstPoint().getX();
+			double dy2 = other.GetLastPoint().getY() - other.GetFirstPoint().getY();
 
 			// by definition of first and last point we are sure that dy > 0
 
@@ -339,8 +339,8 @@ public class Line extends Entity2D implements Comparable<Line>{
 	*/
 	void PerformRounding(double gamma)
 	{
-		_end_point.PerformRounding(gamma);
-		_start_point.PerformRounding(gamma);
+		_end_point.performRounding(gamma);
+		_start_point.performRounding(gamma);
 	}
 
 	/***
@@ -357,7 +357,7 @@ public class Line extends Entity2D implements Comparable<Line>{
 		
 		// first see of all endpoints are collinear,
 		// then see if any endpoint of one line lies on the other line
-		return (p1.Collinear(p3,p4) && p2.Collinear(p3,p4)) &&
+		return (p1.collinear(p3, p4) && p2.collinear(p3, p4)) &&
 			((line_1.Contains(p3) || line_1.Contains(p4)) ||
 			 (line_2.Contains(p1) || line_2.Contains(p2)));
 	}
@@ -380,7 +380,7 @@ public class Line extends Entity2D implements Comparable<Line>{
 
 		// first see of all endpoints are collinear,
 		// then see if any endpoint of one line lies on the other line
-		return (p1.Collinear(p3,p4) && p2.Collinear(p3,p4)) &&
+		return (p1.collinear(p3, p4) && p2.collinear(p3, p4)) &&
 			((line_1.StrictContains(p3) || line_1.StrictContains(p4)) ||
 			 (line_2.StrictContains(p1) || line_2.StrictContains(p2)));
 	}
@@ -400,13 +400,13 @@ public class Line extends Entity2D implements Comparable<Line>{
 			Point new_line_end_point;
 
 			// detects which point of <line_1> must be removed
-			if (line_1.GetStartPoint().Between(line_2.GetStartPoint(), line_2.GetEndPoint())) {
+			if (line_1.GetStartPoint().between(line_2.GetStartPoint(), line_2.GetEndPoint())) {
 				new_line_start_point = line_1.GetEndPoint();
 			} else {
 				new_line_start_point = line_1.GetStartPoint();
 			}
 			// detects which point of <line_2> must be removed
-			if (line_2.GetStartPoint().Between(line_1.GetStartPoint(), line_1.GetEndPoint())) {
+			if (line_2.GetStartPoint().between(line_1.GetStartPoint(), line_1.GetEndPoint())) {
 				new_line_end_point = line_2.GetEndPoint();
 			} else {
 				new_line_end_point = line_2.GetStartPoint();
@@ -448,7 +448,7 @@ public class Line extends Entity2D implements Comparable<Line>{
 	*/
 	public static boolean Contains(Line line, Point point)
 	{
-		return point!=null && line!=null && point.Between(line.GetStartPoint(), line.GetEndPoint());
+		return point!=null && line!=null && point.between(line.GetStartPoint(), line.GetEndPoint());
 	}
 
 	/***
@@ -456,7 +456,7 @@ public class Line extends Entity2D implements Comparable<Line>{
 	*/
 	public static boolean StrictContains(Line line, Point point)
 	{
-		return point!=null && line!=null && point.StrictBetween(line.GetStartPoint(), line.GetEndPoint());
+		return point!=null && line!=null && point.strictBetween(line.GetStartPoint(), line.GetEndPoint());
 	}
 
 	/***
@@ -489,20 +489,20 @@ public class Line extends Entity2D implements Comparable<Line>{
 		double c1 = Vector.dot(v, u);
 		if (c1<=0) {
 			if (nearest_point!=null) nearest_point=endpoint_1.clone();
-			return p.DistanceTo(endpoint_1);
+			return p.distanceTo(endpoint_1);
 		}
 
 		double c2 = Vector.dot(u, u);
 		if (c2<=c1) {
 			if (nearest_point!=null) nearest_point=endpoint_2.clone();
-			return p.DistanceTo(endpoint_2);
+			return p.distanceTo(endpoint_2);
 		}
 
 		Vector w = u.mul(c1/c2);
 
-		Point q=new Point(endpoint_1.GetX()+w.getDX(), endpoint_1.GetY()+w.getDY()); 
+		Point q=new Point(endpoint_1.getX()+w.getDX(), endpoint_1.getY()+w.getDY());
 		if (nearest_point!=null) nearest_point=q.clone();
-		return p.DistanceTo(q);
+		return p.distanceTo(q);
 	}
 
 
@@ -525,8 +525,8 @@ public class Line extends Entity2D implements Comparable<Line>{
 	*/
 	void Scale(double sx, double sy)
 	{
-		_start_point.Scale(sx,sy);
-		_end_point.Scale(sx,sy);
+		_start_point.scale(sx, sy);
+		_end_point.scale(sx, sy);
 		CalculateFirstAndLastPoint();
 	}
 
@@ -537,8 +537,8 @@ public class Line extends Entity2D implements Comparable<Line>{
 	*/
 	void Translate(double dx, double dy)
 	{
-		_start_point.Translate(dx,dy);
-		_end_point.Translate(dx,dy);
+		_start_point.translate(dx, dy);
+		_end_point.translate(dx, dy);
 		CalculateFirstAndLastPoint();
 	}
 
@@ -549,13 +549,13 @@ public class Line extends Entity2D implements Comparable<Line>{
 	*/
 	void Rotate(double theta)
 	{
-		_start_point.Rotate(theta);
-		_end_point.Rotate(theta);
+		_start_point.rotate(theta);
+		_end_point.rotate(theta);
 		CalculateFirstAndLastPoint();
 	}
 
 	@Override
-	public void CalculateBoundingBox() {
+	public void calculateBoundingBox() {
 		// TODO Auto-generated method stub
 		
 	}
@@ -589,8 +589,8 @@ public class Line extends Entity2D implements Comparable<Line>{
 //	         p2 = &_start_point;
 //	     }
 	// 
-//	     double dx = p2.GetX() - p1.GetX();
-//	     double dy = p2.GetY() - p1.GetY();
+//	     double dx = p2.getX() - p1.getX();
+//	     double dy = p2.getY() - p1.getY();
 //	     
 //	     // compute half pixel size
 //	     double s = pixel_size/2.0f;
@@ -602,35 +602,35 @@ public class Line extends Entity2D implements Comparable<Line>{
 	// 
 //	     // case 1: dx = 0
 //	     if (dx==0) {
-//	         result.AddVertex(new Point2D(p1.GetX()-s, p1.GetY()-s)); // V1
-//	         result.AddVertex(new Point2D(p1.GetX()+s, p1.GetY()-s)); // V2
+//	         result.AddVertex(new Point2D(p1.getX()-s, p1.getY()-s)); // V1
+//	         result.AddVertex(new Point2D(p1.getX()+s, p1.getY()-s)); // V2
 	// 
-//	         result.AddVertex(new Point2D(p2.GetX()+s, p2.GetY()+s)); // V3
-//	         result.AddVertex(new Point2D(p2.GetX()-s, p2.GetY()+s)); // V4
+//	         result.AddVertex(new Point2D(p2.getX()+s, p2.getY()+s)); // V3
+//	         result.AddVertex(new Point2D(p2.getX()-s, p2.getY()+s)); // V4
 	// 
 //	         return result;
 //	     }
 	// 
 //	     // case 2: dy = 0
 //	     if (dy==0){
-//	         result.AddVertex(new Point2D(p1.GetX()-s, p1.GetY()+s)); // V1
-//	         result.AddVertex(new Point2D(p1.GetX()-s, p1.GetY()-s)); // V2
+//	         result.AddVertex(new Point2D(p1.getX()-s, p1.getY()+s)); // V1
+//	         result.AddVertex(new Point2D(p1.getX()-s, p1.getY()-s)); // V2
 	// 
-//	         result.AddVertex(new Point2D(p2.GetX()+s, p2.GetY()-s)); // V3
-//	         result.AddVertex(new Point2D(p2.GetX()+s, p2.GetY()+s)); // V4
+//	         result.AddVertex(new Point2D(p2.getX()+s, p2.getY()-s)); // V3
+//	         result.AddVertex(new Point2D(p2.getX()+s, p2.getY()+s)); // V4
 	// 
 //	         return result;
 //	     }
 	// 
 //	     // case 3: dx < 0
 //	     if (dx<0){
-//	         result.AddVertex(new Point2D(p1.GetX()-s, p1.GetY()-s)); // V1
-//	         result.AddVertex(new Point2D(p1.GetX()+s, p1.GetY()-s)); // V2
-//	         result.AddVertex(new Point2D(p1.GetX()+s, p1.GetY()+s)); // V3
+//	         result.AddVertex(new Point2D(p1.getX()-s, p1.getY()-s)); // V1
+//	         result.AddVertex(new Point2D(p1.getX()+s, p1.getY()-s)); // V2
+//	         result.AddVertex(new Point2D(p1.getX()+s, p1.getY()+s)); // V3
 	// 
-//	         result.AddVertex(new Point2D(p2.GetX()+s, p2.GetY()+s)); // V4
-//	         result.AddVertex(new Point2D(p2.GetX()-s, p2.GetY()+s)); // V5
-//	         result.AddVertex(new Point2D(p2.GetX()-s, p2.GetY()-s)); // V6
+//	         result.AddVertex(new Point2D(p2.getX()+s, p2.getY()+s)); // V4
+//	         result.AddVertex(new Point2D(p2.getX()-s, p2.getY()+s)); // V5
+//	         result.AddVertex(new Point2D(p2.getX()-s, p2.getY()-s)); // V6
 	// 
 //	         return result;
 //	     }
@@ -638,13 +638,13 @@ public class Line extends Entity2D implements Comparable<Line>{
 //	     
 //	     // case 4: dx > 0
 //	     if (dx>0){
-//	         result.AddVertex(new Point2D(p1.GetX()-s, p1.GetY()+s)); // V1
-//	         result.AddVertex(new Point2D(p1.GetX()-s, p1.GetY()-s)); // V2
-//	         result.AddVertex(new Point2D(p1.GetX()+s, p1.GetY()-s)); // V3
+//	         result.AddVertex(new Point2D(p1.getX()-s, p1.getY()+s)); // V1
+//	         result.AddVertex(new Point2D(p1.getX()-s, p1.getY()-s)); // V2
+//	         result.AddVertex(new Point2D(p1.getX()+s, p1.getY()-s)); // V3
 	// 
-//	         result.AddVertex(new Point2D(p2.GetX()+s, p2.GetY()-s)); // V4
-//	         result.AddVertex(new Point2D(p2.GetX()+s, p2.GetY()+s)); // V5
-//	         result.AddVertex(new Point2D(p2.GetX()-s, p2.GetY()+s)); // V6
+//	         result.AddVertex(new Point2D(p2.getX()+s, p2.getY()-s)); // V4
+//	         result.AddVertex(new Point2D(p2.getX()+s, p2.getY()+s)); // V5
+//	         result.AddVertex(new Point2D(p2.getX()-s, p2.getY()+s)); // V6
 	// 
 //	         return result;
 //	     }

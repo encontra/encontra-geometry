@@ -52,17 +52,17 @@ public class Polygon extends Polyline{
 	*/
 	public boolean RayIsCrossingEdge(Point ray_origin, Point endpoint_1, Point endpoint_2){
 		return ((
-			(endpoint_1.GetY() > ray_origin.GetY() && 
-				endpoint_2.GetY() <= ray_origin.GetY()
+			(endpoint_1.getY() > ray_origin.getY() &&
+				endpoint_2.getY() <= ray_origin.getY()
 			) 
 			|| 
 			(
-				endpoint_2.GetY() > ray_origin.GetY() &&
-				endpoint_1.GetY() <= ray_origin.GetY()
+				endpoint_2.getY() > ray_origin.getY() &&
+				endpoint_1.getY() <= ray_origin.getY()
 			) 
 		) && 
-		(endpoint_1.GetX()+(ray_origin.GetY()-endpoint_1.GetY())/ 
-			(endpoint_2.GetY()-endpoint_1.GetY())*(endpoint_2.GetX()-endpoint_1.GetX()) < ray_origin.GetX())
+		(endpoint_1.getX()+(ray_origin.getY()-endpoint_1.getY())/
+			(endpoint_2.getY()-endpoint_1.getY())*(endpoint_2.getX()-endpoint_1.getX()) < ray_origin.getX())
 	);
 	}
 
@@ -106,7 +106,7 @@ public class Polygon extends Polyline{
 				current_vertex = _vertex_array.get(i);
 				
 				// let's see if point is lays on the edge
-				if (point.Between(current_vertex, previous_vertex)) {
+				if (point.between(current_vertex, previous_vertex)) {
 					// in this case point is considered INSIDE the polygon
 	                // or not, depending on strict value
 					return !strict;
@@ -176,11 +176,11 @@ public class Polygon extends Polyline{
 					// with endpoints coincident with the vertices
 
 					// first calculate the displacement of middle 
-	                double x = (current_inner_vertex.GetX()-previous_inner_vertex.GetX())/2;
-	                double y = (current_inner_vertex.GetY()-previous_inner_vertex.GetY())/2;                
+	                double x = (current_inner_vertex.getX()-previous_inner_vertex.getX())/2;
+	                double y = (current_inner_vertex.getY()-previous_inner_vertex.getY())/2;
 					
-					x+=previous_inner_vertex.GetX();
-					y+=previous_inner_vertex.GetY();
+					x+=previous_inner_vertex.getX();
+					y+=previous_inner_vertex.getY();
 
 	                p = new Point(x,y);
 

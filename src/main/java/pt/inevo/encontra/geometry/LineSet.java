@@ -223,7 +223,7 @@ public class LineSet extends ArrayList<Line>{
 		// now we sweep over the Lines Array, in this case is '_entity_array'
 		for(int n=0; n<counter;n++) {
 			current_line = get(n);
-			next_y = current_line.GetFirstPoint().GetY();
+			next_y = current_line.GetFirstPoint().getY();
 
 			// see if current line belongs to next sweep line
 			move_sweep_line = (next_y > current_y);
@@ -236,7 +236,7 @@ public class LineSet extends ArrayList<Line>{
 				if (move_sweep_line) {			
 					// we must see if other line ends before next 'y', and in that case
 					// it should be removed from Active Line Segments Array			
-					if (other_line.GetLastPoint().GetY() < next_y) {
+					if (other_line.GetLastPoint().getY() < next_y) {
 						active_line_segments_array.remove(j);
 						continue;
 					}
@@ -291,8 +291,8 @@ public class LineSet extends ArrayList<Line>{
 		Point [] bb=getBoundingBox();
 		Point bottom_left=bb[0];
 		Point top_right=bb[1];
-		double bb_width = Math.abs(top_right.GetX()-bottom_left.GetX());
-		double bb_height = Math.abs(top_right.GetY()-bottom_left.GetY());
+		double bb_width = Math.abs(top_right.getX()-bottom_left.getX());
+		double bb_height = Math.abs(top_right.getY()-bottom_left.getY());
 		double swidth=Math.min(bb_width, bb_height)/1000;
 		NumberFormat nf=NumberFormat.getInstance(Locale.US);
 		String stroke_width=nf.format(swidth);
@@ -379,11 +379,11 @@ public class LineSet extends ArrayList<Line>{
 						double max_y = line.GetMaxY();
 						double min_y = line.GetMinY();
 
-						top_right.SetX(Math.max(top_right.GetX(), max_x));
-						top_right.SetY(Math.max(top_right.GetY(), max_y));
+						top_right.setX(Math.max(top_right.getX(), max_x));
+						top_right.setY(Math.max(top_right.getY(), max_y));
 						
-						bottom_left.SetX(Math.min(bottom_left.GetX(), min_x));
-						bottom_left.SetY(Math.min(bottom_left.GetY(), min_y));
+						bottom_left.setX(Math.min(bottom_left.getX(), min_x));
+						bottom_left.setY(Math.min(bottom_left.getY(), min_y));
 
 					}
 				} // if (a && b)...
@@ -391,8 +391,8 @@ public class LineSet extends ArrayList<Line>{
 		}
 
 		// determine the scale factor
-		//double bb_width = Math.abs(top_right.GetX()-bottom_left.GetX());
-		//double bb_height = Math.abs(top_right.GetY()-bottom_left.GetY());
+		//double bb_width = Math.abs(top_right.getX()-bottom_left.getX());
+		//double bb_height = Math.abs(top_right.getY()-bottom_left.getY());
 		Point [] result=new Point[2];
 		result[0]=bottom_left;
 		result[1]=top_right;
@@ -424,11 +424,11 @@ public class LineSet extends ArrayList<Line>{
 						double max_y = line.GetMaxY();
 						double min_y = line.GetMinY();
 
-						top_right.SetX(Math.max(top_right.GetX(), max_x));
-						top_right.SetY(Math.max(top_right.GetY(), max_y));
+						top_right.setX(Math.max(top_right.getX(), max_x));
+						top_right.setY(Math.max(top_right.getY(), max_y));
 						
-						bottom_left.SetX(Math.min(bottom_left.GetX(), min_x));
-						bottom_left.SetY(Math.min(bottom_left.GetY(), min_y));
+						bottom_left.setX(Math.min(bottom_left.getX(), min_x));
+						bottom_left.setY(Math.min(bottom_left.getY(), min_y));
 
 					}
 				} // if (a && b)...
@@ -441,8 +441,8 @@ public class LineSet extends ArrayList<Line>{
 		}
 
 		// determine the scale factor
-		double bb_width = Math.abs(top_right.GetX()-bottom_left.GetX());
-		double bb_height = Math.abs(top_right.GetY()-bottom_left.GetY());
+		double bb_width = Math.abs(top_right.getX()-bottom_left.getX());
+		double bb_height = Math.abs(top_right.getY()-bottom_left.getY());
 
 
 		if (bb_width==0.0 && bb_height==0.0 ) {
@@ -452,7 +452,7 @@ public class LineSet extends ArrayList<Line>{
 
 		double scale_factor= (1.0f)/Math.max(bb_width,bb_height);
 
-		Translate(-bottom_left.GetX(), -bottom_left.GetY());
+		Translate(-bottom_left.getX(), -bottom_left.getY());
 		
 		//show("Normalize - translate");
 		
