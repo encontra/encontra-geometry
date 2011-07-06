@@ -12,24 +12,18 @@ public class Point extends Entity2D implements Comparable<Point> {
         this.index = index;
     }
 
-    ;
-
     int getIndex() {
         return index;
     }
 
-    ;
-
     public Point() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
     public Point(double xx, double yy) {
         super();
         x = xx;
         y = yy;
-        // TODO Auto-generated constructor stub
     }
 
     public int compareTo(Point o) {
@@ -140,15 +134,17 @@ public class Point extends Entity2D implements Comparable<Point> {
      * @desc performs a scale transformation on this point
      */
     public Point scale(double sx, double sy) {
-        setX(getX() * sx);
-        setY(getY() * sy);
-        return this;
+        Point p = new Point();
+        p.setX(getX() * sx);
+        p.setY(getY() * sy);
+        return p;
     }
 
     public Point scale(double scale) {
-        setX(getX() * scale);
-        setY(getY() * scale);
-        return this;
+        Point p = new Point();
+        p.setX(getX() * scale);
+        p.setY(getY() * scale);
+        return p;
     }
 
     /**
@@ -157,43 +153,50 @@ public class Point extends Entity2D implements Comparable<Point> {
      * @desc performs a translation transformation on this point
      */
     public Point translate(double dx, double dy) {
-        setX(getX() + dx);
-        setY(getY() + dy);
-        return this;
+        Point p = new Point();
+        p.setX(getX() + dx);
+        p.setY(getY() + dy);
+        return p;
     }
 
     public Point translate(double d) {
-        setX(getX() + d);
-        setY(getY() + d);
-        return this;
+        Point p = new Point();
+        p.setX(getX() + d);
+        p.setY(getY() + d);
+        return p;
     }
 
     public Point translate(Point p) {
-        setX(getX() + p.getX());
-        setY(getY() + p.getY());
-        return this;
+        Point newPoint = new Point();
+        newPoint.setX(getX() + p.getX());
+        newPoint.setY(getY() + p.getY());
+        return newPoint;
     }
 
-        /**
+    /**
      * Performs the subtraction of a point to the current one.
+     *
      * @param point the point to be subtracted.
      * @return the resulting point.
      */
     public Point subtract(Point point) {
-        setX(getX() - point.getX());
-        setY(getY() - point.getY());
-        return this;
+        Point newPoint = new Point();
+        newPoint.setX(getX() - point.getX());
+        newPoint.setY(getY() - point.getY());
+        return newPoint;
     }
 
     /**
      * Performs the subtraction of a value to each of current point's coordinates.
+     *
      * @param val the value to be subtracted.
      * @return the resulting point.
      */
     public Point subtract(double val) {
-        setX(getX() - val);
-        setY(getY() - val);
-        return this;
+        Point p = new Point();
+        p.setX(getX() - val);
+        p.setY(getY() - val);
+        return p;
     }
 
     /**
