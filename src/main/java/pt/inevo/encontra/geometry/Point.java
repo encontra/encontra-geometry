@@ -233,7 +233,7 @@ public class Point extends Entity2D implements Comparable<Point> {
      * and another
      */
     public double squareDistanceTo(Point p) {
-        return Math.sqrt(Math.abs(getX() - p.getX())) + Math.sqrt(Math.abs(getY() - p.getY()));
+        return Math.pow(Math.abs(getX() - p.getX()),2) + Math.pow(Math.abs(getY() - p.getY()),2);
     }
 
 
