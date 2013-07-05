@@ -199,13 +199,21 @@ public class PolygonSet extends ArrayList<Polygon>{
             if (line!=null) {
                 //G.SetAdjacency(line.GetStartPoint().GetID(), line.GetEndPoint().GetID());
 
-                //GraphNode n1=G.findNode(line.GetStartPoint().GetID());
-                GraphNode n1=G.createNode(new Long(line.GetStartPoint().GetID()));
+                long n1Id = line.GetStartPoint().GetID();
+                GraphNode n1 = G.findNode(n1Id);
+                if (n1 == null) {
+                    n1 = new GraphNode(n1Id);
+                    G.addVertex(n1);
+                }
 //                n1.setUserDatum("point", line.GetStartPoint().toString(),UserData.SHARED);
                 n1.setUserDatum("point", line.GetStartPoint().toString());
 
-                //GraphNode n2=G.findNode(line.GetEndPoint().GetID());
-                GraphNode n2=G.createNode(new Long(line.GetEndPoint().GetID()));
+                long n2Id = line.GetEndPoint().GetID();
+                GraphNode n2 = G.findNode(n2Id);
+                if (n2 == null) {
+                    n2 = new GraphNode(n2Id);
+                    G.addVertex(n2);
+                }
 //                n2.setUserDatum("point", line.GetEndPoint().toString(), UserData.SHARED);
                 n2.setUserDatum("point", line.GetEndPoint().toString());
 
@@ -316,7 +324,7 @@ public class PolygonSet extends ArrayList<Polygon>{
         //result+="<!DOCTYPE svg PUBLIC \"-//W3C//DTD SVG 1.1//EN\"\n";
         //result+="\"http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd\">\n";
 
-        result+="<svg width=\"100%\" height=\"100%\" viewBox=\"0 0 1.0 1.0\"\n";
+        result+="<svg width=\"100%\" height=\"100%\" "; // viewBox=\"0 0 1.0 1.0\"\n";
         result+="xmlns=\"http://www.w3.org/2000/svg\">\n";
 
         float factor = 1.0f;
@@ -341,7 +349,7 @@ public class PolygonSet extends ArrayList<Polygon>{
         // draw polylines
         for (int i=0;i<size();i++) {
             Polygon p = get(i);
-            String color=Integer.toHexString( new Random().nextInt(16777215));
+            String color = (colorized) ? Integer.toHexString( new Random().nextInt(16777215)) : "000000";
             if (p!=null)
                 result += p.AsString(true,"#"+color,"none");
             factor-=delta;
